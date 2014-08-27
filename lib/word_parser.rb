@@ -1,5 +1,5 @@
 class WordParser
-  SPECIAL_CHARACTERS = [',', '.', ':', ';', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
+  SPECIAL_CHARACTERS = [',', '.', ':', ';', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?']
 
   def initialize(text)
     @text = text.downcase
