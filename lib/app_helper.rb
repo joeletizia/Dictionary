@@ -1,4 +1,3 @@
-require 'pry'
 module AppHelper
   def self.run_default
     parser = SentenceParser.new(default_text).occurance_count_with_sentence_location

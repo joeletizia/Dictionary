@@ -1,5 +1,3 @@
-require 'pry'
-
 class SentenceParser
   def initialize(text)
     @text = text.downcase
