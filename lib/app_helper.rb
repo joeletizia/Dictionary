@@ -2,12 +2,12 @@ require 'pry'
 module AppHelper
   def self.run_default
     parser = SentenceParser.new(default_text).occurance_count_with_sentence_location
-    puts parser.occurance_count_with_sentence_location
+    pp parser.occurance_count_with_sentence_location
   end
 
   def self.run_custom(file_path)
     parser = SentenceParser.new(custom_text(file_path))
-    puts parser.occurance_count_with_sentence_location
+    pp parser.occurance_count_with_sentence_location
   end
 
   def self.no_arguments_provided

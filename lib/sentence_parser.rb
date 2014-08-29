@@ -5,7 +5,7 @@ class SentenceParser
     @text = text.downcase
   end
 
-  SPECIAL_WORDS = ['e.g.', 'i.e.', 'etc.']
+  ABBREVIATED_NON_WORDS = ['e.g.', 'i.e.', 'etc.']
 
   def occurance_count_with_sentence_location
     sentences_with_words = sentences_containing_words
@@ -19,8 +19,7 @@ class SentenceParser
   end
 
   def word_count
-    counts = special_word_count
-    total_counts = counts.merge(word_parser.count_hash)
+    total_counts = word_parser.count_hash
 
     WordHashSorter.new(total_counts).sort
   end
@@ -53,19 +52,10 @@ class SentenceParser
     @word_parser ||= WordParser.new(remove_special_words_from_text)
   end
 
-  def special_word_count
-    counts = {}
-    SPECIAL_WORDS.each do |special_word|
-      counts[special_word] = text.scan(special_word).count if text.include?(special_word)
-    end
-
-    counts
-  end
-
   def remove_special_words_from_text
     string_without_special_words = text.dup
 
-    SPECIAL_WORDS.each do |special_word|
+    ABBREVIATED_NON_WORDS.each do |special_word|
       string_without_special_words.gsub!(special_word, '')
     end
 

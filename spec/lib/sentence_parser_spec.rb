@@ -16,8 +16,7 @@ describe SentenceParser do
         'are' => [1,[2]],
         'we' => [1,[2]],
         'is' => [1,[2]],
-        'this' => [1,[2]],
-        'i.e.' => [1,[2]]
+        'this' => [1,[2]]
       }
 
       expect(sentence_parser.occurance_count_with_sentence_location).to eq(result)
@@ -35,8 +34,7 @@ describe SentenceParser do
         'are' => [2],
         'we' => [2],
         'is' => [2],
-        'this' => [2],
-        'i.e.' => [2]
+        'this' => [2]
       }
       expect(sentence_parser.sentences_containing_words).to eq(result)
     end
@@ -51,8 +49,7 @@ describe SentenceParser do
         'are' => 1,
         'we' => 1,
         'is' => 1,
-        'this' => 1,
-        'i.e.' => 1
+        'this' => 1
       }
     end
 
