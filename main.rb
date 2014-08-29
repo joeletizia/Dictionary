@@ -1,7 +1,7 @@
 require_relative './lib/word_parser'
 require_relative './lib/sentence_parser'
 require_relative './lib/app_helper'
-require 'pry'
+require_relative './lib/word_hash_sorter'
 
 puts "Concordance:"
 

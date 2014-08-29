@@ -1,12 +1,13 @@
+require 'pry'
 module AppHelper
   def self.run_default
-    word_count = SentenceParser.new(default_text).word_count
-    puts word_count
+    parser = SentenceParser.new(default_text).occurance_count_with_sentence_location
+    puts parser.occurance_count_with_sentence_location
   end
 
   def self.run_custom(file_path)
-    word_count = SentenceParser.new(custom_text(file_path)).word_count
-    puts word_count
+    parser = SentenceParser.new(custom_text(file_path))
+    puts parser.occurance_count_with_sentence_location
   end
 
   def self.no_arguments_provided

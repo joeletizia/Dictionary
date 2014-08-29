@@ -1,9 +1,22 @@
+require 'pry'
+
 class SentenceParser
   def initialize(text)
     @text = text.downcase
   end
 
   SPECIAL_WORDS = ['e.g.', 'i.e.', 'etc.']
+
+  def occurance_count_with_sentence_location
+    sentences_with_words = sentences_containing_words
+
+    result = {}
+    word_count.each do |word, count|
+      result[word] = [count, sentences_with_words[word]]
+    end
+
+    result
+  end
 
   def word_count
     counts = special_word_count
@@ -12,10 +25,10 @@ class SentenceParser
     WordHashSorter.new(total_counts).sort
   end
 
-  def sentences_containing_words(words)
+  def sentences_containing_words
     results = {}
 
-    words.each do |word|
+    word_count.keys.each do |word|
       sentences_containing_word = []
 
       pipe_delimited_text.split("|").each_with_index do |sentence, index|
