@@ -17,6 +17,17 @@ describe SentenceParser do
   end
   let(:hash_sorter) { double(:hash_sorter) }
 
+  describe "#sentences_containing_words" do
+    let(:words) { ['hello', 'where'] }
+
+    it "returns a hash with the sentences each word is in" do
+      result = {
+        'hello' => [1],
+        'where' => [2]
+      }
+      expect(sentence_parser.sentences_containing_words(words)).to eq(result)
+    end
+  end
 
   describe "#word_count" do
     before do

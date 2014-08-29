@@ -12,9 +12,29 @@ class SentenceParser
     WordHashSorter.new(total_counts).sort
   end
 
+  def sentences_containing_words(words)
+    results = {}
+
+    words.each do |word|
+      sentences_containing_word = []
+
+      pipe_delimited_text.split("|").each_with_index do |sentence, index|
+        sentences_containing_word << index + 1 if sentence.include? word
+      end
+
+      results[word] = sentences_containing_word
+    end
+
+    results
+  end
+
   private
 
   attr_reader :text
+
+  def pipe_delimited_text
+    remove_special_words_from_text.gsub(/[.?!]/, "|")
+  end
 
   def word_parser
     @word_parser ||= WordParser.new(remove_special_words_from_text)
