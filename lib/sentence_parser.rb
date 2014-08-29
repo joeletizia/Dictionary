@@ -7,8 +7,9 @@ class SentenceParser
 
   def word_count
     counts = special_word_count
+    total_counts = counts.merge(word_parser.count_hash)
 
-    counts.merge(word_parser.count_hash)
+    WordHashSorter.new(total_counts).sort
   end
 
   private
