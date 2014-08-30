@@ -1,6 +1,6 @@
 module AppHelper
   def self.run_default
-    parser = SentenceParser.new(default_text).occurance_count_with_sentence_location
+    parser = SentenceParser.new(default_text)
     pp parser.occurance_count_with_sentence_location
   end
 
