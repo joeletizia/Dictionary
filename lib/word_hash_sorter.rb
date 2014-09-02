@@ -5,12 +5,11 @@ class WordHashSorter
 
   def sort
     sorted_keys = hash.keys.sort
-    new_hash = {}
-    sorted_keys.each do |key|
-      new_hash[key] = hash[key]
-    end
 
-    new_hash
+    sorted_keys.inject({}) do |accumulator, key|
+      accumulator[key] = hash[key]
+      accumulator
+    end
   end
 
   private

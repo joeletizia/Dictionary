@@ -8,12 +8,13 @@ class SentenceParser
   def occurance_count_with_sentence_location
     sentences_with_words = sentences_containing_words
 
-    result = {}
-    word_count.each do |word, count|
-      result[word] = [count, sentences_with_words[word]]
-    end
+    word_count.inject({}) do |accumulator, key_value_pair|
+      word = key_value_pair[0]
+      count = key_value_pair[1]
 
-    result
+      accumulator[word] = [count, sentences_with_words[word]]
+      accumulator
+    end
   end
 
   def word_count
@@ -23,19 +24,16 @@ class SentenceParser
   end
 
   def sentences_containing_words
-    results = {}
-
-    word_count.keys.each do |word|
+    word_count.keys.inject({}) do |accumulator, word|
       sentences_containing_word = []
 
       pipe_delimited_text.split("|").each_with_index do |sentence, index|
         sentences_containing_word << index + 1 if sentence.include? word
       end
 
-      results[word] = sentences_containing_word
+      accumulator[word] = sentences_containing_word
+      accumulator
     end
-
-    results
   end
 
   private

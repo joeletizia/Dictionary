@@ -10,17 +10,15 @@ class WordParser
   end
 
   def count_hash
-    word_hash = {}
-
-    sanitize(text).split(" ").each do |word|
-      if word_hash[word]
-        word_hash[word] += 1
+    sanitize(text).split(" ").inject({}) do |accumulator, word|
+      if accumulator[word]
+        accumulator[word] += 1
       else
-        word_hash[word] = 1
+        accumulator[word] = 1
       end
-    end
 
-    word_hash
+      accumulator
+    end
   end
 
   private
@@ -28,12 +26,8 @@ class WordParser
   attr_reader :text
 
   def sanitize(text)
-    dup_text = text.dup
-
-    SPECIAL_CHARACTERS.each do |special_character|
-      dup_text.delete!(special_character)
+    SPECIAL_CHARACTERS.each.inject(text) do |word, special_character|
+      word.gsub(special_character, '')
     end
-
-    dup_text
   end
 end
