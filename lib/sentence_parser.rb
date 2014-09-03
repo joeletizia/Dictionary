@@ -4,6 +4,7 @@ class SentenceParser
   end
 
   ABBREVIATED_NON_WORDS = ['e.g.', 'i.e.', 'etc.']
+  SENTENCE_DEMARKATING_PUNCTUATION = /[.?!]/
 
   def occurance_count_with_sentence_location
     sentences_with_words = sentences_containing_words
@@ -25,13 +26,7 @@ class SentenceParser
 
   def sentences_containing_words
     word_count.keys.inject({}) do |accumulator, word|
-      sentences_containing_word = []
-
-      pipe_delimited_text.split("|").each_with_index do |sentence, index|
-        sentences_containing_word << index + 1 if sentence.include? word
-      end
-
-      accumulator[word] = sentences_containing_word
+      accumulator[word] = sentences_containing_word(word)
       accumulator
     end
   end
@@ -40,8 +35,16 @@ class SentenceParser
 
   attr_reader :text
 
+  def sentences_containing_word(word)
+    pipe_delimited_text.split("|").each_with_index.inject([]) do |array, key_value_pair|
+      sentence, index = key_value_pair[0], key_value_pair[1]
+      array << index + 1 if sentence.include? word
+      array
+    end
+  end
+
   def pipe_delimited_text
-    remove_special_words_from_text.gsub(/[.?!]/, "|")
+    remove_special_words_from_text.gsub(SENTENCE_DEMARKATING_PUNCTUATION, "|")
   end
 
   def word_parser
@@ -49,12 +52,8 @@ class SentenceParser
   end
 
   def remove_special_words_from_text
-    string_without_special_words = text.dup
-
-    ABBREVIATED_NON_WORDS.each do |special_word|
-      string_without_special_words.gsub!(special_word, '')
+    ABBREVIATED_NON_WORDS.each.inject(text) do |new_text, special_word|
+      new_text.gsub(special_word, '')
     end
-
-    string_without_special_words
   end
 end
