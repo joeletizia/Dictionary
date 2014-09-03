@@ -52,7 +52,7 @@ class SentenceParser
   end
 
   def remove_special_words_from_text
-    ABBREVIATED_NON_WORDS.each.inject(text) do |new_text, special_word|
+    ABBREVIATED_NON_WORDS.inject(text) do |new_text, special_word|
       new_text.gsub(special_word, '')
     end
   end

@@ -26,7 +26,7 @@ class WordParser
   attr_reader :text
 
   def sanitize(text)
-    SPECIAL_CHARACTERS.each.inject(text) do |word, special_character|
+    SPECIAL_CHARACTERS.inject(text) do |word, special_character|
       word.gsub(special_character, '')
     end
   end
